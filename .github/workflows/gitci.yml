@@ -18,14 +18,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
-      - name: Set Git config
-        run: |
-            git config --local user.email "alberto.quero@github.com"
-            git config --local user.name "alberto.quero"
-      - name: merge repositorio
-        run: |
-          git checkout DEV
-          git pull
-          git merge --no-ff main -m "Auto merge"
-          git push
+      - uses: actions/checkout@master
+      - name: Merge main -> dev
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: main
+          target_branch: DEV
+          github_token: ${{ github.token }}
