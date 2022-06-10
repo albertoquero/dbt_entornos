@@ -24,12 +24,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: git-checkout
-        uses: actions/checkout@v3
-      - name: Push
-        uses: s0/git-publish-subdir-action@develop
+        uses: peterjgrainger/action-create-branch@v2.2.0
         env:
-          REPO: self
-          BRANCH: dev # The branch name where you want to push the assets
-          FOLDER: dev # The directory where your assets are generated
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
-          MESSAGE: "Build: ({sha}) {msg}" # The commit message
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: 'DEV'
+          sha: '${{ github.event.pull_request.head.sha }}'
