@@ -7,6 +7,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   pull_request:
     branches: [ "main" ]
+    types: [closed]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -14,15 +15,21 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  merge-master-back-to-dev:
+    if: github.event.pull_request.merged == true
+    timeout-minutes: 2
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Clonear repositorio
+      - uses: actions/checkout@v2
+      - name: Set Git config
+        run: |
+            git config --local user.email "alberto.quero@github.com"
+            git config --local user.name "alberto.quero"
+      - name: merge repositorio
         run: |
           git checkout DEV
-          git merge origin/main
-          git push origin DEV
+          git pull
+          git merge --no-ff main -m "Auto merge"
+          git push
