@@ -22,8 +22,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Clonear repositorio
-        uses: GuillaumeFalourd/clone-github-repo-action@v2
-        with:
-          owner: 'albertoquero'
-          repository: 'dbt_entornos'
-          access-token: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          git checkout DEV
+          git merge origin/main
+          git push origin DEV
