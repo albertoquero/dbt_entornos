@@ -6,7 +6,7 @@ sources:
     description: >
       Raw data demo from PostgreSQL Database.
     schema: google_sheets # this is the schema our raw data lives in
-    database: fivetran # this is the name of our database
+    database: bronce_aquero # this is the name of our database
 
     quoting:
       database: false
@@ -40,7 +40,6 @@ sources:
               Number of units for each product and each month for products.
             tests:
               - not_null
-              - positive_values
           - name: month
             description: >
               Each month for the budget -> End of the month.
@@ -50,6 +49,4 @@ sources:
             description: >
               Date that the data was loaded.
             tests:
-              - not_null
-              - dbt_expectations.expect_column_values_to_be_of_type:
-                  column_type: timestamp_tz 
+              - not_null 
