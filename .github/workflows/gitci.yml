@@ -13,29 +13,33 @@ on:
         required: true
         default: 'merge-dev-to-pre'
 jobs:
+
   merge-dev-to-pre:
     runs-on: ubuntu-latest
     environment: PRE
     steps:
       - uses: actions/checkout@master
-      - name: Merge dev -> pre
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          from_branch: DEV
-          target_branch: PRE
-          github_token: ${{ github.token }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+      # uses: devmasx/merge-branch@master
+      # with:
+      #   type: now
+      #    from_branch: DEV
+      #    target_branch: PRE
+      #    github_token: ${{ github.token }}
   merge-pre-to-pro:
     runs-on: ubuntu-latest
     environment: main
     needs: merge-dev-to-pre
     steps:
       - uses: actions/checkout@master
-      - name: Merge pre ->  pro
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          from_branch: PRE
-          target_branch: main
-          github_token: ${{ github.token }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+      #- name: Merge pre ->  pro
+      #  uses: devmasx/merge-branch@master
+      #  with:
+      #    type: now
+      #    from_branch: PRE
+      #    target_branch: main
+      #    github_token: ${{ github.token }}
 
