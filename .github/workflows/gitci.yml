@@ -21,6 +21,10 @@ jobs:
       - uses: actions/checkout@master
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
+        with:
+          base: DEV
+          branch: PRE
+          delete-branch: false
       # uses: devmasx/merge-branch@master
       # with:
       #   type: now
@@ -35,6 +39,10 @@ jobs:
       - uses: actions/checkout@master
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
+        with:
+          base: PRE
+          branch: main
+          delete-branch: false
       #- name: Merge pre ->  pro
       #  uses: devmasx/merge-branch@master
       #  with:
