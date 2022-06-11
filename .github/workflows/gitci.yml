@@ -20,10 +20,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@master
-      - name: Merge main -> dev
+      - name: Merge dev -> main
         uses: devmasx/merge-branch@master
         with:
           type: now
-          from_branch: main
-          target_branch: DEV
+          from_branch: DEV
+          target_branch: main
           github_token: ${{ github.token }}
