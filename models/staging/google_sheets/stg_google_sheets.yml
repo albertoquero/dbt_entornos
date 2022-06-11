@@ -16,9 +16,6 @@ models:
          UUID for each unique product on platform.          
         tests:
           - not_null
-          - relationships:
-                to: ref('stg_products')
-                field: product_id  
       - name: quantity
         description: >
           Number of units for each product and each month for products.
