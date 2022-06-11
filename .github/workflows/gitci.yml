@@ -33,6 +33,6 @@ jobs:
         with:
           type: now
           from_branch: PRE
-          target_branch: PRO
+          target_branch: main
           github_token: ${{ github.token }}
 
