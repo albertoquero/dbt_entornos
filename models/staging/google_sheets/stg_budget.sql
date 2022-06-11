@@ -1,4 +1,4 @@
---Comentario1
+--Comentariq
 WITH src_budget AS (
     SELECT * 
     FROM {{ source('google_sheets', 'budget') }}
