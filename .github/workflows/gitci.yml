@@ -1,29 +1,38 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
+
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+
   pull_request:
     branches: [ "DEV" ]
     types: [closed ]
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    inputs:
+      job:
+        description: 'Despliegues'
+        required: true
+        default: 'merge-dev-to-pre'
 jobs:
-  # This workflow contains a single job called "build"
-  merge-master-back-to-dev:
+  merge-dev-to-pre:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@master
-      - name: Merge dev -> main
+      - name: Merge dev -> pre
         uses: devmasx/merge-branch@master
         with:
           type: now
           from_branch: DEV
-          target_branch: main
+          target_branch: PRE
           github_token: ${{ github.token }}
+  merge-pre-to-pro:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Merge pre ->  pro
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: PRE
+          target_branch: PRO
+          github_token: ${{ github.token }}
+
