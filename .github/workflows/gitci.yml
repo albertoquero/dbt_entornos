@@ -15,6 +15,7 @@ on:
 jobs:
   merge-dev-to-pre:
     runs-on: ubuntu-latest
+    environment: PRE
     steps:
       - uses: actions/checkout@master
       - name: Merge dev -> pre
@@ -26,6 +27,7 @@ jobs:
           github_token: ${{ github.token }}
   merge-pre-to-pro:
     runs-on: ubuntu-latest
+    environment: main
     needs: merge-dev-to-pre
     steps:
       - uses: actions/checkout@master
