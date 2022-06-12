@@ -19,35 +19,36 @@ jobs:
     environment: PRE
     steps:
       - uses: actions/checkout@master
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+     #- name: Create Pull Request
+     #   uses: peter-evans/create-pull-request@v4
+     #   with:
+     #     base: DEV
+     #     branch: PRE
+     #     delete-branch: false
+      - name: Merge DEV into PRE
+        uses: devmasx/merge-branch@master
         with:
-          base: DEV
-          branch: PRE
-          delete-branch: false
-      # uses: devmasx/merge-branch@master
-      # with:
-      #   type: now
-      #    from_branch: DEV
-      #    target_branch: PRE
-      #    github_token: ${{ github.token }}
-  merge-pre-to-pro:
+         type: now
+         from_branch: DEV
+         target_branch: PRE
+         github_token: ${{ github.token }}
+  merge-pre-to-main:
     runs-on: ubuntu-latest
     environment: main
     needs: merge-dev-to-pre
     steps:
       - uses: actions/checkout@master
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+     # - name: Create Pull Request
+     #   uses: peter-evans/create-pull-request@v4
+     #   with:
+     #     base: PRE
+     #     branch: main
+     #     delete-branch: false
+      - name: Merge PRE into main
+        uses: devmasx/merge-branch@master
         with:
-          base: PRE
-          branch: main
-          delete-branch: false
-      #- name: Merge pre ->  pro
-      #  uses: devmasx/merge-branch@master
-      #  with:
-      #    type: now
-      #    from_branch: PRE
-      #    target_branch: main
-      #    github_token: ${{ github.token }}
+          type: now
+          from_branch: PRE
+          target_branch: main
+          github_token: ${{ github.token }}
 
